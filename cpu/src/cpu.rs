@@ -22,9 +22,18 @@ impl CPU {
            pc = mem + (mem[2]<<16 | mem[3]<<8 | mem[4]);  
        }
    }
-   
-   fn loadRom(arg: Type) -> RetType {
-
+  
+   // Load rom a given location
+   fn loadRom(&self, loc: &str) {
+       const rom = fs::read(loc);
+       if rom.len() <= MEM_SIZE{
+            for(i = 0; i < rom.len(); i++){
+                self.mem[i] = rom[i];
+            }
+        }
+        else{
+            panic!("Rom is bigger than 16MiB");
+        }
    }
 
    // Read data from given location in memory
@@ -46,7 +55,13 @@ impl CPU {
    }
 
    fn innerLoop(arg: Type) -> RetType {
-      
+     A = ;
+     B = ;
+     C = ;
+
+     self.write(B, self.read(A));
+     self.pc = C;
+            
    }
 }
 
