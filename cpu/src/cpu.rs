@@ -28,15 +28,21 @@ impl CPU {
    }
 
    // Read data from given location in memory
-   fn read(loc: u8) -> u8 {
-       return mem[loc];
+   fn read(&self, loc: u8) -> u8 {
+        if(loc < MEM_SIZE){
+           return mem[loc];
+        }else{
+            panic!("Out of bound error!");
+        }
    }
 
    // Write to memory
-   fn write(loc: u8, data: u8) {
+   fn write(&mut self, loc: u8, data: u8) {
        if(loc < MEM_SIZE){
            mem[loc] = data;
-       }
+       }else{
+            panic!("Out of bound error!");
+        }
    }
 
    fn innerLoop(arg: Type) -> RetType {
