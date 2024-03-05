@@ -22,15 +22,23 @@ impl CPU {
            pc = mem + (mem[2]<<16 | mem[3]<<8 | mem[4]);  
        }
    }
+   
    fn loadRom(arg: Type) -> RetType {
 
    }
-   fn read(arg: Type) -> RetType {
-       
+
+   // Read data from given location in memory
+   fn read(loc: u8) -> u8 {
+       return mem[loc];
    }
-   fn write(arg: Type) -> RetType {
-      
+
+   // Write to memory
+   fn write(loc: u8, data: u8) {
+       if(loc < MEM_SIZE){
+           mem[loc] = data;
+       }
    }
+
    fn innerLoop(arg: Type) -> RetType {
       
    }
