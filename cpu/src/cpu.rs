@@ -5,6 +5,8 @@
 //      outerLoop - source addr, dest addr, next instruction addr. Update pc to next inst addr.
 
 // 16 MiB
+use std::io;
+use std::fs;
 const MEM_SIZE: usize = 0x1000008;
 
 struct CPU{
@@ -14,20 +16,20 @@ struct CPU{
 
 impl CPU {
     // Implement CPU, all its methods 
-   fn new(arg: Type) -> CPU {
-       self{
-
-           mem = [0; MEM_SIZE];
+   fn new() -> CPU {
+       let mut cpu = CPU{
+           mem: [0; MEM_SIZE],
            // pc = mem + (mem[2]<<16 | mem[3]<<8 | mem[4]); given in docs
-           pc = mem + (mem[2]<<16 | mem[3]<<8 | mem[4]);  
-       }
+           pc: mem + (mem[2]<<16 | mem[3]<<8 | mem[4]), 
+       };
+        return cpu;
    }
   
    // Load rom a given location
    fn loadRom(&self, loc: &str) {
-       const rom = fs::read(loc);
+       let mut rom = fs::read(loc)?;
        if rom.len() <= MEM_SIZE{
-            for(i = 0; i < rom.len(); i++){
+            for i in 0..rom.len(){
                 self.mem[i] = rom[i];
             }
         }
